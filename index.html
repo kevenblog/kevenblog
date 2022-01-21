@@ -134,7 +134,7 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -148,7 +148,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -254,6 +254,32 @@
         <p class="post-meta">
             Posted by keven on
             2019-11-29
+        </p>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/article/MySQL批量插入重复数据问题/">
+        <h2 class="post-title">
+                                 
+            MySQL批量插入重复数据问题
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            最近做一个业务场景：需要批量插入一些数据，这些数据来源是用户上传或导入的 Excel 表，其中有三个字段标识一条数据的唯一性，如果上传过程中重复就更新之前数据库中的数据，否则执行插入过程。
+	场景很简单，首先想到的简单方案就是获取到数据集合后，在 for 循环中查询数据库中是否存在当前数据，如果存在就更新，否则就新增。用代码就是这样：
+for(TestModel model : modelL......
+        </div>
+    </a>
+    
+        <p class="post-meta">
+            Posted by keven on
+            2022-01-21
         </p>
     
 
@@ -535,6 +561,10 @@ h......
     <ul>
       
         <li>
+          <a href="/article/MySQL批量插入重复数据问题/">MySQL批量插入重复数据问题</a>
+        </li>
+      
+        <li>
           <a href="/article/Hexo写博客和Hexo-Admin管理/">Hexo写博客和Hexo Admin管理</a>
         </li>
       
@@ -548,10 +578,6 @@ h......
       
         <li>
           <a href="/article/No1/">No1.</a>
-        </li>
-      
-        <li>
-          <a href="/article/世俗/">世俗</a>
         </li>
       
     </ul>
@@ -572,7 +598,7 @@ h......
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li></ul>
     </div>
 
         <hr>

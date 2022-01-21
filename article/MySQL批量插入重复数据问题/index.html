@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          若我会见到你 - Keven | Blog
+          MySQL批量插入重复数据问题 - Keven | Blog
         
     </title>
 
-    <link rel="canonical" href="https://kevenblog.github.io/article/若我会见到你/">
+    <link rel="canonical" href="https://kevenblog.github.io/article/MySQL批量插入重复数据问题/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -89,11 +89,11 @@
                         <div class="tags">
                             
                         </div>
-                        <h1>若我会见到你</h1>
+                        <h1>MySQL批量插入重复数据问题</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by keven on
-                            2019-11-29
+                            2022-01-21
                         </span>
                     </div>
                 
@@ -210,11 +210,69 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>若我会见到你</p>
-<p>事隔经年</p>
-<p>我如何和你招呼</p>
-<p>以眼泪</p>
-<p>以沉默。</p>
+                <p>最近做一个业务场景：需要批量插入一些数据，这些数据来源是用户上传或导入的 Excel 表，其中有三个字段标识一条数据的唯一性，如果上传过程中重复就更新之前数据库中的数据，否则执行插入过程。<br>
+	场景很简单，首先想到的简单方案就是获取到数据集合后，在 for 循环中查询数据库中是否存在当前数据，如果存在就更新，否则就新增。用代码就是这样：</p>
+<pre><code>for(TestModel model : modelList){
+      if(testServiceDao.getModelInfo(model) != null){
+          //更新
+          testServiceDao.updateModelInfo(model);
+      }else{
+          //新增
+          testServiceDao.insertModelInfo(model);
+      }
+ }
+</code></pre>
+<p>Java在数据量比较小的情况下，虽然存在 for 循环中查询、更新/新增方法很不合理，但是不会产生很大的性能影响。但是当前数据量比较大，所以需要实现一种批量插入并能能够自动识别存在重复元素并更新的情况。后来在搜索引擎搜了一下，找到了相关场景的方法，于此记录一下。</p>
+<ol>
+<li>
+<p>ignore insert into<br>
+使用方法如下：</p>
+<pre><code>INSERT IGNORE INTO user (name) VALUES ('telami') 
+</code></pre>
+<p>Mysql当插入数据时，如出现错误时，如重复数据，将不返回错误，只以警告形式返回。所以使用ignore请确保语句本身没有问题，否则也会被忽略掉。这种方法很简便，但是有一种可能，就是插入不是因为重复数据报错，而是因为其他原因报错的，也同样被忽略了～</p>
+</li>
+<li>
+<p>on duplicate key update<br>
+使用方法如下：</p>
+<pre><code>INSERT INTO user (name) VALUES ('telami') ON duplicate KEY UPDATE id = id 
+</code></pre>
+<p>Mysql当 primary key 或者 unique 重复时，执行 update 语句，如 update 后为无用语句，如 id=id，则同 1 功能相同，但错误不会被忽略掉。</p>
+<p>这种方法有个前提条件，就是，需要插入的约束，需要是主键或者唯一约束（在你的业务中那个要作为唯一的判断就将那个字段设置为唯一约束也就是 unique key）。</p>
+</li>
+<li>
+<p>insert … select … where not exist<br>
+使用方法如下：</p>
+<pre><code>INSERT INTO user (name) SELECT 'telami' FROM dual WHERE NOT EXISTS (SELECT id FROM user WHERE id = 1)
+</code></pre>
+<p>Mysql根据select的条件判断是否插入，可以不光通过primary 和unique来判断，也可通过其它条件。</p>
+<p>这种方法其实就是使用了 mysql 的一个临时表的方式，但是里面使用到了子查询，效率也会有一点点影响，如果能使用上面的就不使用这个。</p>
+</li>
+<li>
+<p>replace into<br>
+使用方法如下：</p>
+<pre><code>REPLACE INTO user SELECT 1, 'telami' FROM books 
+</code></pre>
+<p>Mysql如果存在 primary 或者 unique 唯一约束相同的记录，则先删除掉。再插入新记录。这种方法就是不管原来有没有相同的记录，都会先删除掉然后再插入。</p>
+</li>
+<li>
+<p>实践使用<br>
+利用 MyBatis 与上述方式结合，就可以实现想要的效果了~</p>
+<pre><code> &lt;insert id=&quot;batchSaveUser&quot; parameterType=&quot;list&quot;&gt;
+     insert into user (id,username,mobile_number)
+     values
+     &lt;foreach collection=&quot;list&quot; item=&quot;item&quot; index=&quot;index&quot; separator=&quot;,&quot;&gt;
+         (
+             #{item.id},
+             #{item.username},
+             #{item.mobileNumber}
+         )
+     &lt;/foreach&gt;
+     ON duplicate KEY UPDATE id = id
+ &lt;/insert&gt;
+</code></pre>
+<p>XML其中已经给 username 和 mobile_number 两个字段加了唯一约束。这样在批量插入时，如果存在用户名和手机号相同的话，是不会再插入了的，或者可以将后面的 UPDATE 语句改成实际更新的语句</p>
+</li>
+</ol>
 
                 
 
@@ -222,13 +280,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/生活一旦忙起来/" data-toggle="tooltip" data-placement="top" title="生活一旦忙起来">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/一别便是一生/" data-toggle="tooltip" data-placement="top" title="一别，便是一生">Next Post &rarr;</a>
+                            <a href="/article/Hexo写博客和Hexo-Admin管理/" data-toggle="tooltip" data-placement="top" title="Hexo写博客和Hexo Admin管理">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
