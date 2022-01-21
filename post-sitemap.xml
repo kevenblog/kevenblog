@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://kevenblog.github.io/article/Hexo%E5%86%99%E5%8D%9A%E5%AE%A2%E5%92%8CHexo-Admin%E7%AE%A1%E7%90%86/</loc>
+        <lastmod>2022-01-21T03:16:05.251Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://kevenblog.github.io/article/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%BD%91%E7%AB%99/</loc>
         <lastmod>2022-01-21T01:38:18.698Z</lastmod>
         <changefreq>weekly</changefreq>

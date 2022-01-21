@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          No1. - Keven | Blog
+          Hexo写博客和Hexo Admin管理 - Keven | Blog
         
     </title>
 
-    <link rel="canonical" href="https://kevenblog.github.io/article/No1/">
+    <link rel="canonical" href="https://kevenblog.github.io/article/Hexo写博客和Hexo-Admin管理/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -89,11 +89,11 @@
                         <div class="tags">
                             
                         </div>
-                        <h1>No1.</h1>
+                        <h1>Hexo写博客和Hexo Admin管理</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by keven on
-                            2019-12-31
+                            2022-01-21
                         </span>
                     </div>
                 
@@ -210,13 +210,53 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>真正的快乐是发自内心的</p>
-<p>就算能让人失意的大喇叭</p>
-<p>也不过是片刻</p>
-<p>有些人喜欢安静</p>
-<p>有些人喜欢喧哗</p>
-<p>而我喜欢安静的看着喧哗</p>
-<p>仿佛那一切都跟我无关也跟我有关</p>
+                <ol>
+<li>
+<p>原始方法<br>
+在我们放置博客文件的文件夹Hexo中，source/_posts/目录下存放着所有博文的Markdown文件，初始化只有一个hello-world.md文件。<br>
+我们可以在Git Bash中创建新博文：</p>
+<pre><code>hexo new title
+</code></pre>
+<p>在_posts目录下会生成相应的.md文件，接下来我们可以编辑该文件，直接写博文，使用Markdown语法。写完博文后，执行即可在博客中更新.</p>
+<pre><code>hexo g
+hexo d
+</code></pre>
+</li>
+<li>
+<p>Hexo Admin插件管理</p>
+<p>用原生的方法来管理博文十分的不便，便有了Hexo Admin这一插件来方便我们的操作。</p>
+<p>首先安装插件。</p>
+<pre><code>npm install --save hexo-admin
+</code></pre>
+<p>启动服务器。</p>
+<pre><code>hexo server -d
+</code></pre>
+<p>即可在localhost:4000/admin/中编辑博文了。</p>
+</li>
+<li>
+<p>Hexo Admin错误信息解决方法</p>
+<p>1.错误信息:Config value “admin.deployCommand” not found<br>
+当你第一次点击 Deploy 按钮时,可能会遇到上面的问题<br>
+解决方法:在项目中创建hexo-deploy.sh文件并设置权限</p>
+<pre><code>touch hexo-deploy.sh; chmod a+x hexo-deploy.sh
+</code></pre>
+<p>在文件内写入一下内容</p>
+<pre><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d
+</code></pre>
+<p>编辑配置文件在根目录_config.yml配置文件中，在之前配置的admin配置信息下加入deployCommand: ‘./hexo-deploy.sh’ 信息</p>
+<p>2.错误信息deploy Error: spawn UNKNOWN 在解决完上述错误信息后，将会报出deploy Error: spawn UNKNOWN错误信息<br>
+解决方法:<br>
+打开node_modules目录下hexo-admin目录下deploy.js</p>
+<p>将var proc = spawn(command, [message], {detached: true});改为 var proc = spawn((process.platform === “win32” ? “hexo.cmd” : “hexo”), [‘d’]);</p>
+<p>改完之后便解决了问题</p>
+<p>参考博客：</p>
+<p><a href="https://chiwai.tang99.club/posts/2672848395.html" target="_blank" rel="noopener">https://chiwai.tang99.club/posts/2672848395.html</a></p>
+</li>
+<li>
+<p>Hexo Admin图片<br>
+Hexo Admin可以直接复制图片粘贴，然后自动下载到source/images目录并重命名。但在Windows中粘贴后会出现裂图。这时就需要手动把括号中的前后两个斜杠去掉，就能正常显示。</p>
+</li>
+</ol>
 
                 
 
@@ -224,13 +264,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/🔧工具/" data-toggle="tooltip" data-placement="top" title="🔧工具">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/世俗/" data-toggle="tooltip" data-placement="top" title="世俗">Next Post &rarr;</a>
+                            <a href="/article/辅助工具类网站/" data-toggle="tooltip" data-placement="top" title="辅助工具类网站">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
