@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://kevenblog.github.io/article/JReble/</loc>
+        <lastmod>2022-03-09T02:26:34.656Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://kevenblog.github.io/article/MySQL%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%E9%97%AE%E9%A2%98/</loc>
         <lastmod>2022-01-21T06:46:10.526Z</lastmod>
         <changefreq>weekly</changefreq>
