@@ -240,8 +240,7 @@
 <p>在nginx.conf配置文件中添加一个如下server</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen  443 ssl;</span><br><span class="line">        server_name  www.demo.com;</span><br><span class="line">        ssl_certificate      F:/nginx-1.16.1/ssl/demo.crt;</span><br><span class="line">        ssl_certificate_key  F:/nginx-1.16.1/ssl/demo.key;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">          root   html;</span><br><span class="line">          index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h2 id="启动nginx">启动nginx</h2>
-<p>正常启动nginx后，使用 <a href="https://127.0.0.1/" target="_blank" rel="noopener">https://127.0.0.1:443</a> 访问，可以正常跳转<br>
-<a href="https://img2020.cnblogs.com/blog/2504560/202108/2504560-20210815215247361-576389821.png" target="_blank" rel="noopener"><img src="https://img2020.cnblogs.com/blog/2504560/202108/2504560-20210815215247361-576389821.png" alt="20181031234338193.png"></a></p>
+<p>正常启动nginx后，使用 <a href="https://127.0.0.1/" target="_blank" rel="noopener">https://127.0.0.1:443</a> 访问，可以正常跳转</p>
 
                 
 
